@@ -12,13 +12,25 @@ export default function Weather({ temp }) {
 }
 
 Weather.propTypes = {
-  temp: PropTypes.number.isRequired
+  temp: PropTypes.number.isRequired,
+  condition: PropTypes.oneOf([
+    "Thundestorm",
+    "Drizzle",
+    "Rain",
+    "Snow",
+    "Atmosphere",
+    "Clear",
+    "Clouds",
+    "Haze",
+    "Dust",
+    "Mist"
+  ]).isRequired
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });
