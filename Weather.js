@@ -1,19 +1,71 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, StatusBar } from "react-native";
 import PropTypes from "prop-types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
-export default function Weather({ temp }) {
+const weatherOptions = {
+  Haze: {
+    iconName: "weather-hail",
+    gradient: ["#4DA0B0", "#D39D38"],
+  },
+  Thundestorm: {
+    iconName: "",
+    gradient: [],
+  },
+  Drizzle: {
+    iconName: "",
+    gradient: [],
+  },
+  Rain: {
+    iconName: "",
+    gradient: [],
+  },
+  Snow: {
+    iconName: "",
+    gradient: [],
+  },
+  Atmosphere: {
+    iconName: "",
+    gradient: [],
+  },
+  Clear: {
+    iconName: "",
+    gradient: [],
+  },
+  Clouds: {
+    iconName: "",
+    gradient: [],
+  },
+  Dust: {
+    iconName: "",
+    gradient: [],
+  },
+  Mist: {
+    iconName: "",
+    gradient: [],
+  },
+};
+
+export default function Weather({ temp, condition }) {
   console.log(temp);
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      // Button Linear Gradient
+      colors={weatherOptions["Haze"].gradient}
+      style={styles.container}
+    >
+      <StatusBar barStyle='white-content' />
       <View style={styles.halfContainer}>
-        <MaterialCommunityIcons size={90} name='weather-lightning-rainy' />
+        <MaterialCommunityIcons
+          size={90}
+          name={weatherOptions["Haze"].iconName}
+          color='white'
+        />
         <Text style={styles.temp}>{temp} C</Text>
       </View>
-      <View style={styles.halfContainer}>
-      </View>
-    </View>
+      <View style={styles.halfContainer} />
+    </LinearGradient>
   );
 }
 
@@ -40,11 +92,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   temp: {
-    fontSize: 32
+    fontSize: 32,
+    color: "white",
   },
   halfContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });
