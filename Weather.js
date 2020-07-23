@@ -49,7 +49,7 @@ const weatherOptions = {
   },
 };
 
-export default function Weather({ temp, condition }) {
+export default function Weather({ temp, condition, city, realFeel, pressure }) {
   return (
     <LinearGradient
       colors={weatherOptions[condition].gradient}
@@ -63,11 +63,18 @@ export default function Weather({ temp, condition }) {
           color='white'
         />
         <Text style={styles.temp}>{temp} C</Text>
+        <Text style={styles.city}>{city}</Text>
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.title}>{weatherOptions[condition].title}</Text>
         <Text style={styles.subtitle}>
           {weatherOptions[condition].subtitle}
+        </Text>
+        <Text style={styles.subtitle}>
+          RealFeel: {realFeel}
+        </Text>
+        <Text style={styles.subtitle}>
+          Pressure: {pressure} kpa
         </Text>
       </View>
     </LinearGradient>
@@ -95,6 +102,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   temp: {
+    fontSize: 32,
+    color: "white",
+    marginBottom: 10,
+    fontWeight: "300",
+    textAlign: "left",
+  },
+  city: {
     fontSize: 32,
     color: "white",
     marginBottom: 10,

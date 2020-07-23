@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { Alert } from "react-native";
-import Loading from "./Loading";
-import * as Location from "expo-location";
 import axios from "axios";
+import * as Location from "expo-location";
+import Loading from "./Loading";
 import Weather from "./Weather";
+import getEnvVars from "./environment";
 
-const API_KEY = "";
+const { apiKey } = getEnvVars();
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [temp, setTemp] = useState(0);
   const [condition, setCondition] = useState("Clear");
+  const [city, setCity] = useState("");
+  const [realFeel, setRealFeel] = useState(0);
+  const [pressure, setPressure] = useState(0);
 
   const getWeather = async (latitude, longitude) => {
-    const {
-      data: {
-        main: { temp },
-        weather
-      },
-    } = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+    const { data } = await axios.get(
+      `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
     );
     setIsLoading(false);
-    setTemp(temp);
-    setCondition(weather[0].main);
+    setTemp(data.main.temp);
+    setCity(data.name);
+    setRealFeel(data.main.feels_like);
+    setPressure(data.main.pressure);
+    setCondition(data.weather[0].main);
   };
 
   const getLocation = async () => {
@@ -33,7 +35,6 @@ export default function App() {
         coords: { latitude, longitude },
       } = await Location.getCurrentPositionAsync();
       getWeather(latitude, longitude);
-      // Send to API and get weather
     } catch (error) {
       Alert.alert("Need location access!", "So sad");
     }
@@ -46,6 +47,6 @@ export default function App() {
   return isLoading ? (
     <Loading />
   ) : (
-    <Weather temp={Math.round(temp)} condition={condition} />
+    <Weather temp={Math.round(temp)} condition={condition} city={city} realFeel={realFeel} pressure={pressure} />
   );
 }
