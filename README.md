@@ -1,8 +1,6 @@
 # Happy Weather
 
-My 1st Mobile App
-
-This react-native app uses expo to display the weather information of your current location to both android/ios phones.
+This react-native app uses EXPO to display the weather information of your current location to both android/ios phones.
 
 This app is built based on the follow-through lecture from [NomadCoders](https://nomadcoders.co/).
 However, I have replaced classes with functional programming including using 'useState' and 'useEffect', instead of 'ComponentDidMount' or 'this.setState'.
