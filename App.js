@@ -6,26 +6,33 @@ import Loading from "./Loading";
 import Weather from "./Weather";
 import getEnvVars from "./environment";
 
-const { apiKey } = getEnvVars();
+const { API_KEY } = getEnvVars();
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [temp, setTemp] = useState(0);
-  const [condition, setCondition] = useState("Clear");
   const [city, setCity] = useState("");
-  const [realFeel, setRealFeel] = useState(0);
+  const [condition, setCondition] = useState("Clear");
+  const [description, setDescription] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [pressure, setPressure] = useState(0);
+  const [realFeel, setRealFeel] = useState(0);
+  const [temp, setTemp] = useState({});
 
   const getWeather = async (latitude, longitude) => {
     const { data } = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
+      `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
     );
     setIsLoading(false);
-    setTemp(data.main.temp);
+
     setCity(data.name);
-    setRealFeel(data.main.feels_like);
-    setPressure(data.main.pressure);
     setCondition(data.weather[0].main);
+    setDescription(data.weather[0].description);
+    setPressure(data.main.pressure);
+    setRealFeel(data.main.feels_like);
+    setTemp({
+      temp: Math.round(data.main.temp),
+      temp_max: Math.round(data.main.temp_max),
+      temp_min: Math.round(data.main.temp_min),
+    });
   };
 
   const getLocation = async () => {
@@ -47,6 +54,6 @@ export default function App() {
   return isLoading ? (
     <Loading />
   ) : (
-    <Weather temp={Math.round(temp)} condition={condition} city={city} realFeel={realFeel} pressure={pressure} />
+    <Weather temp={temp} condition={condition} city={city} description={description} realFeel={realFeel} pressure={pressure} />
   );
 }
