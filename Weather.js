@@ -36,8 +36,6 @@ const weatherOptions = {
   Clouds: {
     iconName: "weather-cloudy",
     gradient: ["#D7D2CC", "#304352"],
-    title: "Cloudy",
-    subtitle: "Cloudy yeah",
   },
   Dust: {
     iconName: "weather-hail",
@@ -49,7 +47,7 @@ const weatherOptions = {
   },
 };
 
-export default function Weather({ temp, condition, city, realFeel, pressure }) {
+export default function Weather({ temp, condition, city, description, realFeel, pressure }) {
   return (
     <LinearGradient
       colors={weatherOptions[condition].gradient}
@@ -57,19 +55,20 @@ export default function Weather({ temp, condition, city, realFeel, pressure }) {
     >
       <StatusBar barStyle='light-content' />
       <View style={styles.halfContainer}>
+        <Text style={styles.city}>{city}</Text>
+        <Text style={styles.temp}>{temp.temp}&deg;</Text>
+        <Text style={styles.subtitle}>{description}</Text>
+        <View style={styles.minMaxTemp}>
+          <Text style={[styles.subtitle, styles.minTemp]}>H:{temp.temp_min}&deg;</Text>
+          <Text style={styles.subtitle}>L:{temp.temp_max}&deg;</Text>
+        </View>
         <MaterialCommunityIcons
           size={90}
           name={weatherOptions[condition].iconName}
           color='white'
         />
-        <Text style={styles.temp}>{temp} C</Text>
-        <Text style={styles.city}>{city}</Text>
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{weatherOptions[condition].title}</Text>
-        <Text style={styles.subtitle}>
-          {weatherOptions[condition].subtitle}
-        </Text>
         <Text style={styles.subtitle}>
           RealFeel: {realFeel}
         </Text>
@@ -82,7 +81,7 @@ export default function Weather({ temp, condition, city, realFeel, pressure }) {
 }
 
 Weather.propTypes = {
-  temp: PropTypes.number.isRequired,
+  temp: PropTypes.object.isRequired,
   condition: PropTypes.oneOf([
     "Thundestorm",
     "Drizzle",
@@ -102,34 +101,30 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   temp: {
-    fontSize: 32,
+    fontSize: 60,
     color: "white",
-    marginBottom: 10,
     fontWeight: "300",
-    textAlign: "left",
   },
   city: {
     fontSize: 32,
     color: "white",
-    marginBottom: 10,
-    fontWeight: "300",
-    textAlign: "left",
+    fontWeight: "400",
   },
   halfContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  title: {
-    fontSize: 50,
-    color: "white",
-    fontWeight: "300",
-    marginBottom: 10,
+  minMaxTemp: {
+    flexDirection: "row",
+  },
+  minTemp: {
+    marginRight: "10px",
   },
   subtitle: {
-    fontSize: 25,
+    fontSize: 20,
     textAlign: "left",
-    fontWeight: "600",
+    fontWeight: "400",
     color: "white",
   },
   textContainer: {
