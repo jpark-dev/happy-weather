@@ -3,11 +3,16 @@ import { ActivityIndicator, Dimensions, ScrollView, StyleSheet, Text, View } fro
 import { format } from "date-fns";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const { width:SCREEN_WIDTH } = Dimensions.get("window");
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const icons = {
+  "Atmosphere": "weather-fog",
+  "Clear": "weather-sunny",
   "Clouds": "weather-cloudy",
-  "Rain": "weather-rainy",
+  "Drizzle": "weather-rainy",
+  "Rain": "weather-pouring",
+  "Snow": "weather-snow",
+  "Thunderstorm": "weather-lightning",
 };
 
 const DayFormatter = (props) => {
@@ -19,7 +24,6 @@ const DayFormatter = (props) => {
     </Text>
   )
 };
-
 
 export default function Weather({ days, city }) {
   return (
