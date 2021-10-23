@@ -50,6 +50,15 @@ const weatherOptions = {
 export default function Weather({ temp, condition, city, description, realFeel, pressure }) {
   return (
     <View style={styles.container}>
+      <View style={styles.city}>
+        <Text style={styles.cityName}>Seoul</Text>
+      </View>
+      <View style={styles.weather}>
+        <View style={styles.day}>
+          <Text style={styles.dayTemp}>27</Text>
+          <Text style={styles.dayDesc}>Sunny</Text>
+        </View>
+      </View>
     </View>
   )
 }
@@ -74,5 +83,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "tomato",
+  },
+  city: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cityName: {
+    fontSize: 70,
+    fontWeight: 600,
+  },
+  day: {
+    flex: 1,
+    backgroundColor: "teal",
+    alignItems: "center",
+  },
+  dayTemp: {
+    marginTop: 50,
+    fontSize: 180,
+  },
+  dayDesc: {
+    marginTop: -30,
+    fontSize: 60,
+  },
+  weather: {
+    flex: 3,
   }
 });
