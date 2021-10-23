@@ -30,7 +30,7 @@ export default function App() {
       } = await axios.get(
         `http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=alerts&appid=${API_KEY}&units=metric`
       );
-      setDays(daily)
+      setDays(daily);
 
     } catch (error) {
       Alert.alert("Need location access!", "So sad");
