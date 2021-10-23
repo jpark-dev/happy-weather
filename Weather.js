@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet, StatusBar } from "react-native";
+import { Dimensions, View, Text, ScrollView, StyleSheet, StatusBar } from "react-native";
 import PropTypes from "prop-types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+
+const { width:SCREEN_WIDTH } = Dimensions.get("window");
 
 const weatherOptions = {
   Haze: {
@@ -53,12 +55,25 @@ export default function Weather({ temp, condition, city, description, realFeel, 
       <View style={styles.city}>
         <Text style={styles.cityName}>Seoul</Text>
       </View>
-      <View style={styles.weather}>
+      <ScrollView
+        contentContainerStyle={styles.weather}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+      >
         <View style={styles.day}>
           <Text style={styles.dayTemp}>27</Text>
           <Text style={styles.dayDesc}>Sunny</Text>
         </View>
-      </View>
+        <View style={styles.day}>
+          <Text style={styles.dayTemp}>27</Text>
+          <Text style={styles.dayDesc}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.dayTemp}>27</Text>
+          <Text style={styles.dayDesc}>Sunny</Text>
+        </View>
+      </ScrollView>
     </View>
   )
 }
@@ -94,8 +109,7 @@ const styles = StyleSheet.create({
     fontWeight: 600,
   },
   day: {
-    flex: 1,
-    backgroundColor: "teal",
+    width: SCREEN_WIDTH,
     alignItems: "center",
   },
   dayTemp: {
@@ -107,6 +121,5 @@ const styles = StyleSheet.create({
     fontSize: 60,
   },
   weather: {
-    flex: 3,
   }
 });
